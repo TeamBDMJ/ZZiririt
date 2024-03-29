@@ -77,14 +77,8 @@ class BoardService(
     fun createBoard(boardRequest: BoardRequest, userPrincipal: UserPrincipal) {
         val findMember = socialMemberRepository.findByIdOrNull(userPrincipal.memberId)
             ?: throw RestApiException(ErrorCode.MODEL_NOT_FOUND)
-        val board = boardRepository.save(boardRequest.to(socialMemberEntity = findMember))
 
-        val categoryNames = listOf("공지 사항", "자유 게시판")
-        val categories = categoryNames.map { CategoryEntity(it) }
-        categories.forEach {
-            categoryRepository.save(it)
-            boardCategoryRepository.save(BoardCategoryEntity(board, it))
-        }
+        boardRepository.save(boardRequest.to(socialMemberEntity = findMember))
     }
 
     @Transactional
@@ -158,8 +152,14 @@ class BoardService(
         val boardOwner = socialMemberRepository.findByIdOrNull(streamerBoardRequest.boardOwnerId)
             ?: throw RestApiException(ErrorCode.MODEL_NOT_FOUND)
 
-        boardRepository.save(streamerBoardRequest.to(boardOwner))
+        val board = boardRepository.save(streamerBoardRequest.to(boardOwner))
 
+        val categoryNames = listOf("공지 사항", "잡담 게시판")
+        val categories = categoryNames.map { CategoryEntity(it) }
+        categories.forEach {
+            categoryRepository.save(it)
+            boardCategoryRepository.save(BoardCategoryEntity(board, it))
+        }
     }
 
     @Transactional
