@@ -74,7 +74,8 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-
+    //aop
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     //cache
     implementation("org.springframework.boot:spring-boot-starter-cache")
     //caffeine
@@ -107,6 +108,7 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestExtensionVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
+
 }
 
 tasks.withType<KotlinCompile> {
