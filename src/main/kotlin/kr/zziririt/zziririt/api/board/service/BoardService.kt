@@ -178,13 +178,13 @@ class BoardService(
         boardCategoryRepository.save(boardCategory)
     }
 
-    fun getCategoriesByBoardId(boardId: Long): List<CategoryEntity> {
+    fun getCategoriesByBoardId(boardId: Long): List<BoardCategoryResponse> {
         val board = boardRepository.findByIdOrNull(boardId)
             ?: throw ModelNotFoundException(ErrorCode.MODEL_NOT_FOUND)
 
         val boardCategories = boardCategoryRepository.findByBoardId(board.id!!)
 
-        return boardCategories.map { it.category }
+        return boardCategories.map { BoardCategoryResponse.from(it) }
     }
 
 }
