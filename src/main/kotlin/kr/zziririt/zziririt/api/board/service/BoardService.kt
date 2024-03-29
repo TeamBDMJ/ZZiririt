@@ -148,6 +148,7 @@ class BoardService(
         boardRepository.updateBoardStatusToInactive(inactiveBoardIdList)
     }
 
+    @Transactional
     fun createStreamerBoard(streamerBoardRequest: StreamerBoardRequest, userPrincipal: UserPrincipal) {
         val boardOwner = socialMemberRepository.findByIdOrNull(streamerBoardRequest.boardOwnerId)
             ?: throw RestApiException(ErrorCode.MODEL_NOT_FOUND)
