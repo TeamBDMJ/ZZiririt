@@ -20,7 +20,7 @@ class MemberController(
 ) {
 
     @GetMapping("/myinfo")
-    fun getMember(
+    fun getMyInfo(
         @AuthenticationPrincipal principal: UserPrincipal
     ) = responseEntity(HttpStatus.OK) { memberService.getMember(principal) }
 

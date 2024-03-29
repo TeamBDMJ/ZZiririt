@@ -5,7 +5,7 @@ import kr.zziririt.zziririt.api.member.dto.request.AdjustRoleRequest
 import kr.zziririt.zziririt.api.member.dto.request.ChangeMemberPointRequest
 import kr.zziririt.zziririt.api.member.dto.request.SelectMyIconRequest
 import kr.zziririt.zziririt.api.member.dto.request.SetBoardManagerRequest
-import kr.zziririt.zziririt.api.member.dto.response.GetMemberResponse
+import kr.zziririt.zziririt.api.member.dto.response.GetMyInfoResponse
 import kr.zziririt.zziririt.domain.member.model.ChangeDivision
 import kr.zziririt.zziririt.domain.member.model.MemberRole
 import kr.zziririt.zziririt.domain.member.model.MemberStatus
@@ -29,13 +29,13 @@ class MemberService(
     private val bannedHistoryRepository: BannedHistoryRepository
 ) {
 
-    fun getMember(userPrincipal: UserPrincipal): GetMemberResponse {
+    fun getMember(userPrincipal: UserPrincipal): GetMyInfoResponse {
         val memberCheck = memberRepository.findByIdOrNull(userPrincipal.memberId) ?: throw ModelNotFoundException(
             ErrorCode.MODEL_NOT_FOUND
         )
         val loginCheck = loginHistoryRepository.findTopByMemberIdOrderByCreatedAtDesc(memberCheck)
 
-        return GetMemberResponse.from(memberCheck, loginCheck)
+        return GetMyInfoResponse.from(memberCheck, loginCheck)
     }
 
     @Transactional

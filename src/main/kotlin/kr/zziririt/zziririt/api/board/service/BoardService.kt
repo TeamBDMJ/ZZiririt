@@ -149,7 +149,7 @@ class BoardService(
     }
 
     @Transactional
-    fun createStreamerBoard(streamerBoardRequest: StreamerBoardRequest, userPrincipal: UserPrincipal) {
+    fun createStreamerBoard(streamerBoardRequest: StreamerBoardRequest) {
         val boardOwner = socialMemberRepository.findByIdOrNull(streamerBoardRequest.boardOwnerId)
             ?: throw RestApiException(ErrorCode.MODEL_NOT_FOUND)
 

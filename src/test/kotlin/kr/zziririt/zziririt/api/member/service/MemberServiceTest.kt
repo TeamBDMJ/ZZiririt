@@ -9,7 +9,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kr.zziririt.zziririt.api.member.controller.MemberController
 import kr.zziririt.zziririt.api.member.dto.request.AdjustRoleRequest
-import kr.zziririt.zziririt.api.member.dto.response.GetMemberResponse
+import kr.zziririt.zziririt.api.member.dto.response.GetMyInfoResponse
 import kr.zziririt.zziririt.domain.member.model.*
 import kr.zziririt.zziririt.domain.member.repository.LoginHistoryRepository
 import kr.zziririt.zziririt.domain.member.repository.MemberIconRepository
@@ -133,7 +133,7 @@ class MemberServiceTest() : BehaviorSpec({
             every { loginHistoryRepository.findTopByMemberIdOrderByCreatedAtDesc(testMember) } returns loginHistoryEntity
 
             Then("유저 정보가 반환되어야 한다.") {
-                GetMemberResponse(
+                GetMyInfoResponse(
                     nickname = testMember.nickname,
                     memberStatus = testMember.memberStatus,
                     lastLogin = loginHistoryEntity.createdAt
