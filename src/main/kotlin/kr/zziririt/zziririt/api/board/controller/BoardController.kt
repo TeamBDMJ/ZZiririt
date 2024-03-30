@@ -140,7 +140,7 @@ class BoardController(
         @RequestParam(value = "boardUrl", required = true) boardUrl: String
     ) = responseEntity(HttpStatus.OK) { boardService.getBoardByUrl(boardUrl) }
 
-    @GetMapping("/categories/board/{boardId}")
+    @GetMapping("/{boardId}/categories")
     fun getCategoriesByBoardId(
         @PathVariable boardId: Long
     ) = responseEntity(HttpStatus.OK) { boardService.getCategoriesByBoardId(boardId) }
