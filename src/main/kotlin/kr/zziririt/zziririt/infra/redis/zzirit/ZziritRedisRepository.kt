@@ -13,7 +13,7 @@ class ZziritRedisRepository(
     fun updateRank(zziritRank: List<ZziritDto>) {
 
         redisTemplate.delete(key)
-        //key, value 값으로 묶어 줌 (postId와 zziritCount)
+        //key, value 값으로 묶어 줍니다. (postId와 zziritCount)
         val rankHash = zziritRank.associate { it.postId.toString() to it.zziritCount }
         redisTemplate.opsForHash<String, Long>().putAll(key, rankHash)
 
@@ -24,7 +24,8 @@ class ZziritRedisRepository(
                     "postId" to it.postId.toString(),
                     "postTitle" to it.postTitle,
                     "boardUrl" to it.boardUrl,
-                    "zziritCount" to it.zziritCount.toString()
+                    "zziritCount" to it.zziritCount.toString(),
+                    "boardId" to it.boardId.toString()
                 )
             )
         }
@@ -43,6 +44,7 @@ class ZziritRedisRepository(
                 zziritCount = details["zziritCount"]?.toLong() ?: 0L,
                 postTitle = details["postTitle"] ?: "",
                 boardUrl = details["boardUrl"] ?: "",
+                boardId = details["boardId"]?.toLong() ?: 0L,
             )
         }
     }

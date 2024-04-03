@@ -7,4 +7,5 @@ data class ZziritDto @QueryProjection constructor(
     val zziritCount: Long,
     val postTitle: String,
     val boardUrl: String,
+    val boardId: Long,
 )

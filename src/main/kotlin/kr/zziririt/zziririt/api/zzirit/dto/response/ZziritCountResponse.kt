@@ -5,4 +5,5 @@ data class ZziritCountResponse(
     val zziritCount: Long,
     val postTitle: String,
     val boardUrl: String,
+    val boardId: Long,
 )
