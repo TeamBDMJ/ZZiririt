@@ -31,11 +31,12 @@ class ZziritQueryDslRepositoryImpl(
             .from(zzirit)
             .leftJoin(post)
             .on(zzirit.entityId.eq(post.id)).fetchJoin()
-            .leftJoin(board)
-            .on(post.board.eq(board)).fetchJoin()
-            .where(zzirit.zziritEntityType.eq(ZziritEntityType.POST))
-            .where(zzirit.isDeleted.eq(false))
-            .where(zzirit.createdAt.after(range))
+            .innerJoin(board)
+            .on(post.board.id.eq(board.id)).fetchJoin()
+            .where(
+                zzirit.zziritEntityType.eq(ZziritEntityType.POST),
+                zzirit.isDeleted.eq(false),
+                zzirit.createdAt.after(range))
             .orderBy(post.zziritCount.desc())
             .limit(limitCount)
             .fetch()

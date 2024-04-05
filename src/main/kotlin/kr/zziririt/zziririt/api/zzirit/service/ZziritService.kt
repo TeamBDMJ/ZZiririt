@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 class ZziritService (
     private val zziritRepository: ZziritRepository
 ) {
-    @Scheduled(cron = "0/30 0 0 1/1 * ?")
+    @Scheduled(fixedRate = 30000)
     fun updateRank(){
         val range = LocalDateTime.now().minusDays(1)
         val ranking = zziritRepository.findZziritRankInPosts(range)
