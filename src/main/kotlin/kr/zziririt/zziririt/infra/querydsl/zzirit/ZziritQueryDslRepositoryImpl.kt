@@ -27,7 +27,7 @@ class ZziritQueryDslRepositoryImpl(
                 post.title,
                 post.board.boardUrl,
                 post.board.id
-            ))
+            )).distinct()
             .from(zzirit)
             .leftJoin(post)
             .on(zzirit.entityId.eq(post.id)).fetchJoin()
